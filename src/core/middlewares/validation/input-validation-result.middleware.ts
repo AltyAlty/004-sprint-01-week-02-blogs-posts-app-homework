@@ -8,7 +8,7 @@ import { HttpStatus } from '../../types/http-statuses';
 
 /*Создаем функцию "createErrorMessages()" для формирования объектов, содержащих массивы с сообщениями об ошибках
 валидации для случаев, когда библиотека express-validator не используется.*/
-export const createErrorMessages = (errors: ValidationErrorType[]): ValidationErrorDto => ({ errorMessages: errors });
+export const createErrorMessages = (errors: ValidationErrorType[]): ValidationErrorDto => ({ errorsMessages: errors });
 
 /*Создаем функцию "formatErrors()" для формирования объектов, содержащих сообщения об ошибках валидации при
 использовании библиотеки express-validator.*/
@@ -29,7 +29,7 @@ export const inputValidationResultMiddleware = (req: Request, res: Response, nex
 
   /*Если ошибки валидации были найдены, то сообщаем об этом клиенту.*/
   if (errors.length > 0) {
-    res.status(HttpStatus.BadRequest).json({ errorMessages: errors });
+    res.status(HttpStatus.BadRequest).json({ errorsMessages: errors });
     return;
   }
 

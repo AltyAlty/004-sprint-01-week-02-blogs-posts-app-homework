@@ -26,7 +26,7 @@ describe('Posts API body validation check', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet1.body.errorMessages).toHaveLength(3);
+    expect(invalidDataSet1.body.errorsMessages).toHaveLength(3);
 
     const invalidDataSet2 = await request(app)
       .post(POSTS_PATH)
@@ -39,7 +39,7 @@ describe('Posts API body validation check', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet2.body.errorMessages).toHaveLength(4);
+    expect(invalidDataSet2.body.errorsMessages).toHaveLength(4);
 
     const invalidDataSet3 = await request(app)
       .post(POSTS_PATH)
@@ -52,7 +52,7 @@ describe('Posts API body validation check', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet3.body.errorMessages).toHaveLength(1);
+    expect(invalidDataSet3.body.errorsMessages).toHaveLength(1);
     const getPostListResponse = await request(app).get(POSTS_PATH).set('Authorization', adminToken);
     expect(getPostListResponse.body).toHaveLength(0);
   });
