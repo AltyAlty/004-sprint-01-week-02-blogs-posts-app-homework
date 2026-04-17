@@ -22,6 +22,7 @@ pnpm add -D typescript @types/express jest ts-jest @types/jest @types/node super
 Файл "package.json": настройка полей "main" и "scripts".
 Файл "tsconfig.json": ручная настройка.
 Файл "jest.config.json" создан вручную. Запускаются тесты только из папки "__tests__/e2e/".
+
 Файл "tsconfig.test.json" создан вручную. Содержит отдельные правила для тестов.
 1. Берет все базовые настройки из файла "tsconfig.json".
 2. TypeScript проверяет типы, но не генерирует файлы .js.
@@ -63,8 +64,9 @@ Automatic ESLint configuration - ON, Run eslint --fix on save - ON.
 4. Во всех тестах добавить путь "/app/".
 5. Создать вручную файлы .yml, описывающие документацию Swagger:
 5.1 Файл "/src/core/swagger/openapi.swagger.yml".
-5.2 Файл "/src/drivers/docs/drivers.swagger.yml".
-5.3 Файл "/src/testing/docs/testing.swagger.yml".
+5.2 Файл "/src/blogs/docs/blogs.swagger.yml".
+5.3 Файл "/src/posts/docs/posts.swagger.yml".
+5.4 Файл "/src/testing/docs/testing.swagger.yml".
 
 Настройка деплоя приложения на vercel.com:
 1. Создать файл "vercel.json".
@@ -90,6 +92,8 @@ Automatic ESLint configuration - ON, Run eslint --fix on save - ON.
       }
     }
   ]
+
+Документация Swagger находиться по пути "/api".
 
 Jest - тестовый фреймворк для JavaScript, который поддерживает тестирование кода. Используется для написания и
 выполнения юнит-тестов, тестов интеграции и моков.
@@ -152,13 +156,40 @@ Authorization: Basic <base64-encoded-credentials>
 3. Сервер извлекает данные, декодирует их и проверяет логин и пароль. Если они верны, то сервер разрешает доступ.
 
 Структура приложения:
-1. "/src/auth/" - код, связанный с аутентификацией и авторизацией.
-2. "/src/core/" - общий код для всего приложения.
-3. "/src/db/" - моковая БД.
-4. "/src/drivers/" - код, связанный с водителями.
-5. "/src/rides/" - код, связанный с поездками.
-6. "/src/testing/" - код, связанные с тестированием приложения.
-7. "/__tests__/e2e/" - тесты.
-8. "/__tests__/utils/" - код, связанный с тестами.
-
-Документация Swagger находиться по пути "/api".
+0. Файл "index.ts" - точка входа приложения.
+0.1 Файл "setup-app.ts" - настройка приложения.
+1. "/src/auth/" - код, связанный с авторизацией.
+1.1 "/src/auth/middlewares/" - middlewares, связанные с авторизацией.
+2. "/src/blogs/" - код, связанный с блогами.
+2.1 "/src/blogs/docs/" - документация Swagger по блогам.
+2.2 "/src/blogs/dto/" - DTO для входных данных по блогам.
+2.3 "/src/blogs/repositories/" - репозиторий для работы с данными по блогам в БД.
+2.4 "/src/blogs/routers/" - роутер для работы с данными по блогам.
+2.4.1 "/src/blogs/routers/handlers/" - функции-обработчики для роутера для работы с данными по блогам.
+2.5 "/src/blogs/types/" - типы для блогов.
+2.6 "/src/blogs/validation/" - валидации DTO для входных данных по блогам.
+3. "/src/core/" - общий код для всего приложения.
+3.1 "/src/core/middlewares/" - middlewares для всего приложения.
+3.1.1 "/src/core/middlewares/validation/" - валидационные middlewares для всего приложения.
+3.2 "/src/core/paths/" - глобальные переменные путей для всего приложения.
+3.3 "/src/core/swagger/" - настройка Swagger.
+3.4 "/src/core/types/" - общие типы для всего приложения.
+4. "/src/db/" - моковая БД.
+5. "/src/posts/" - код, связанный с постами.
+5.1 "/src/posts/docs/" - документация Swagger по постам.
+5.2 "/src/posts/dto/" - DTO для входных данных по постам.
+5.3 "/src/posts/repositories/" - репозиторий для работы с данными по постам в БД.
+5.4 "/src/posts/routers/" - роутер для работы с данными по постам.
+5.4.1 "/src/posts/routers/handlers/" - функции-обработчики для роутера для работы с данными по постам.
+5.5 "/src/posts/types/" - типы для постов.
+5.6 "/src/posts/validation/" - валидации DTO для входных данных по постам.
+6. "/src/testing/" - код, связанный с тестированием приложения.
+6.1 "/src/testing/docs/" - документация Swagger по тестированию.
+6.2 "/src/testing/routers/" - роутер для тестирования приложения.
+7. "/__tests__/" - тестирование приложения.
+7.1 "/__tests__/e2e/" - e2e-тесты.
+7.1.1 "/__tests__/e2e/blogs/" - e2e-тесты по блогам.
+7.1.2 "/__tests__/e2e/posts/" - e2e-тесты по постам.
+7.2 "/__tests__/utils/" - утилиты, связанные с тестированием приложения.
+7.2.1 "/__tests__/utils/blogs/" - утилиты, связанные с тестированием блогов.
+7.2.2 "/__tests__/utils/posts/" - утилиты, связанные с тестированием постов.
